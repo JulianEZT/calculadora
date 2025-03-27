@@ -1,0 +1,11 @@
+<div class="calculator-container">
+  <input type="number" [(ngModel)]="num1" placeholder="Número 1" />
+  <select [(ngModel)]="operation">
+    <option value="+">Sumar (+)</option>
+    <option value="-">Restar (−)</option>
+    <option value="*">Multiplicar (×)</option>
+    <option value="/">Dividir (÷)</option>
+  </select>
+  <input type="number" [(ngModel)]="num2" placeholder="Número 2" />
+  <button (click)="calculate()">Calcular</button>
+</div>
