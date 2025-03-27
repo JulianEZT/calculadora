@@ -1,0 +1,35 @@
+name: Run All Tests (Unit + E2E)
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Usar Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar pruebas unitarias
+        run: npm run test -- --watch=false --browsers=ChromeHeadless
+
+      - name: Instalar Cypress
+        run: npx cypress install
+
+      - name: Ejecutar pruebas Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start
+          wait-on: 'http://localhost:4200'
+          wait-on-timeout: 60
+          command: npx cypress run
